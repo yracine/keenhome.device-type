@@ -1,6 +1,7 @@
 // keen home smart vent
 // http://www.keenhome.io
 // SmartThings Device Handler v1.0.0
+// Modified by Yves Racine
 
 metadata {
     definition (name: "Keen Home Smart Vent", namespace: "smartthings", author: "Keen Home") {
