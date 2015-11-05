@@ -1,5 +1,4 @@
-# device-type.keenhome.smartvents.groovy
-
+# device-type.keenhome.smartvents
 
 Authors:             Keen Home, Yves Racine
 
