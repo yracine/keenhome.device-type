@@ -50,6 +50,8 @@ b) Click on your device(s), and then edit at the bottom
 
 c) Choose the new device type (v1.0.1) from the list using the type field
 
+d) Hit the save button at the bottom
+
 /*********************************************************************************************
 
 <b>3) Configure the new device settings in the smartThing app</b>
