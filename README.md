@@ -60,3 +60,5 @@ d) Hit the save button at the bottom
 a) Go to the Home tab, click on Things, and the right device
 
 b) Hit the configure tile to set the new 'refresh rate' settings.
+
+You need to press the configure tile for each device that you have.
