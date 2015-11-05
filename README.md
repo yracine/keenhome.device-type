@@ -47,7 +47,7 @@ f) Hit the "publish/for me" button at the top right corner (in the code window)
 
 a) Go to https://graph.api.smartthings.com/device/list
 
-b) Click on your device, and then edit at the bottom
+b) Click on your device(s), and then edit at the bottom
 
 c) Choose the new device type (v1.0.1) from the list using the type field
 
