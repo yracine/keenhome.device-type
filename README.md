@@ -1,4 +1,4 @@
-# device-type.keenhome.smartvents
+# keenhome.device-type.smartvents
 
 Authors:             Keen Home, Yves Racine
 
