@@ -23,7 +23,7 @@ INSTALLATION STEPS
 
 /*********************************************************************************************
 
-<b>1) Create a new device type (Keen Home Smart Vent)</b>
+<b>1) Create the device type (Keen Home Smart Vent)</b>
 /*********************************************************************************************
 
 a) Go to https://graph.api.smartthings.com/ide/devices
@@ -40,3 +40,22 @@ e) Hit the create button at the bottom
 
 f) Hit the "publish/for me" button at the top right corner (in the code window)
 
+/*********************************************************************************************
+
+<b>2) Assign your devices to the new device type (should be at the end of your device list)
+/*********************************************************************************************
+
+a) Go to https://graph.api.smartthings.com/device/list
+
+b) Click on your device, and then edit at the bottom
+
+c) Choose the new device type (v1.0.1) from the list using the type field
+
+/*********************************************************************************************
+
+<b>3) Configure the new device settings in the smartThing app
+/*********************************************************************************************
+
+a) Go to the Home tab, click on Things, and the right device
+
+b) Hit the configure tile to set the new 'refresh rate' settings.
