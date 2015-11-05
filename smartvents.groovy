@@ -71,9 +71,9 @@ metadata {
         valueTile("zigbeeId", "device.zigbeeId", inactiveLabel: true, decoration: "flat") {
             state "serial", label:'${currentValue}', backgroundColor:"#ffffff"
         }
-		standardTile("configure", "device.configure", inactiveLabel: false, decoration: "flat", width: 2, height: 2) {
-			state "configure", label:'', action:"configuration.configure", icon:"st.secondary.configure"
-		}
+	standardTile("configure", "device.configure", inactiveLabel: false, decoration: "flat", width: 2, height: 2) {
+		state "configure", label:'', action:"configuration.configure", icon:"st.secondary.configure"
+	}
         main "switch"
         details(["switch","refresh","temperature","levelSliderControl","battery",  "configure"])
     }
