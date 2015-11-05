@@ -42,7 +42,7 @@ f) Hit the "publish/for me" button at the top right corner (in the code window)
 
 /*********************************************************************************************
 
-<b>2) Assign your devices to the new device type (should be at the end of your device list)
+<b>2) Assign your devices to the new device type (should be at the end of your device list)</b>
 /*********************************************************************************************
 
 a) Go to https://graph.api.smartthings.com/device/list
@@ -53,7 +53,7 @@ c) Choose the new device type (v1.0.1) from the list using the type field
 
 /*********************************************************************************************
 
-<b>3) Configure the new device settings in the smartThing app
+<b>3) Configure the new device settings in the smartThing app</b>
 /*********************************************************************************************
 
 a) Go to the Home tab, click on Things, and the right device
