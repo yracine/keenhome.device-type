@@ -2,7 +2,7 @@
 // http://www.keenhome.io
 // SmartThings Device Handler v1.0.1
 // Modified by Yves Racine to do 5-10 minute refresh of pressure and temp values instead of every minute
-// This could save your battery life on the long run.
+// This could save your battery life in the long run.
 
 metadata {
     definition (name: "Keen Home Smart Vent V1.0.1", namespace: "smartthings", author: "Keen Home") {
