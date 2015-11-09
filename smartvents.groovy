@@ -1,6 +1,6 @@
 
 metadata {
-    definition (name: "Keen Home Smart Vent", namespace: "smartthings", author: "Keen Home") {
+    definition (name: "Keen Home Smart Vent V1.0.1", namespace: "smartthings", author: "Keen Home") {
         capability "Switch Level"
         capability "Switch"
         capability "Configuration"
