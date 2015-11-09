@@ -1,11 +1,6 @@
-// keen home smart vent
-// http://www.keenhome.io
-// SmartThings Device Handler v1.0.1
-// Modified by Yves Racine to do 5-10 minute refresh of pressure and temp values instead of every minute
-// This could save your battery life in the long run.
 
 metadata {
-    definition (name: "Keen Home Smart Vent V1.0.1", namespace: "smartthings", author: "Keen Home") {
+    definition (name: "Keen Home Smart Vent", namespace: "smartthings", author: "Keen Home") {
         capability "Switch Level"
         capability "Switch"
         capability "Configuration"
@@ -41,9 +36,9 @@ metadata {
 
     // UI tile definitions
     tiles {
-        standardTile("switch", "device.switch", width: 2, height: 2, canChangeIcon: true) {
-            state "on", action: "switch.off", icon: "st.vents.vent-open-text", backgroundColor: "#53a7c0"
-            state "off", action: "switch.on", icon: "st.vents.vent-closed", backgroundColor: "#ffffff"
+        standardTile("switch", "device.switch", width: 2, height: 2, canChangeIcon: false) {
+            state "on", action: "switch.off",icon: "st.vents.vent-open-text", backgroundColor: "#53a7c0"
+            state "off", action: "switch.on",icon: "st.vents.vent-closed", backgroundColor: "#ffffff"
             state "obstructed", action: "clearObstruction", icon: "st.vents.vent-closed", backgroundColor: "#ff0000"
             state "clearing", action: "", icon: "st.vents.vent-closed", backgroundColor: "#ffff33"
         }
@@ -71,9 +66,9 @@ metadata {
         valueTile("zigbeeId", "device.zigbeeId", inactiveLabel: true, decoration: "flat") {
             state "serial", label:'${currentValue}', backgroundColor:"#ffffff"
         }
-	standardTile("configure", "device.configure", inactiveLabel: false, decoration: "flat", width: 2, height: 2) {
-		state "configure", label:'', action:"configuration.configure", icon:"st.secondary.configure"
-	}
+		standardTile("configure", "device.configure", inactiveLabel: false, decoration: "flat", width: 2, height: 2) {
+			state "configure", label:'', action:"configuration.configure", icon:"st.secondary.configure"
+		}
         main "switch"
         details(["switch","refresh","temperature","levelSliderControl","battery",  "configure"])
     }
