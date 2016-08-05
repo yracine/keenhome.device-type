@@ -915,7 +915,7 @@ private send(msg) {
 }
 
 private def get_APP_NAME() {
-	return "KeenHomeManager"
+	return "KeenVentManager"
 }
 
 private def get_MAX_ROOMS() {
