@@ -594,7 +594,7 @@ def setZoneSettings() {
 	log.debug "End of setZoneSettings Fcn"
 }
 
-// @sensor		motionSensor used for motion detection in room
+// @sensor	motionSensor used for motion detection in room
 // @indiceRoom	room indice in settings
 private def isRoomOccupied(sensor, indiceRoom) {
     // If mode is Night, then consider the room occupied.
