@@ -42,7 +42,7 @@ def generalSetupPage() {
 	dynamicPage(name: "generalSetupPage", uninstall:true, nextPage: roomsSetupPage,refreshAfterSelection:true) {
 		section("ABOUT") {
 			paragraph  image:"${getCustomImagePath()}keenHome.jpg","${get_APP_NAME()}, the smartapp that enables better ambiant temperature control in Rooms based on Keen Home Smart Vents"
-			paragraph "Commissioned by Keen Home, Version 1.1" 
+			paragraph "Commissioned by Keen Home, Version 1.2" 
 			paragraph "Copyright©2016 Yves Racine"
 			paragraph "More Zoned Heating/Cooling Solutions- with scheduling & zoning capabilities- available here (click below)" 
 				href url:"http://www.ecomatiqhomes.com/#!store/tc3yr", style:"embedded", required:false, title:"More zoning solutions here..."  
@@ -141,6 +141,11 @@ def roomsSetup(params) {
 		section("Room ${indiceRoom}-Temp threshold for vent adjustments [(when cooling and room temp < threshold) or (when heating and room temp> threshold) => vents are closed;otherwise left open]") {
 			input (name:"desiredTemp${indiceRoom}", type:"decimal", title: "Temp Threshold [default = 72F/22C]", 
 				required: false, defaultValue:settings."desiredTemp${indiceRoom}")			                
+		}
+		section("Room ${indiceRoom}-TempSensor [optional]") {
+			input "tempSensor${indiceRoom}", title: "Temp sensor for better temp adjustment", "capability.temperatureMeasurement", 
+				required: false, description: "Optional"
+
 		}
 		section("Room ${indiceRoom}-Vents Setup [optional]")  {
 			for (int j = 1;(j <= get_MAX_VENTS()); j++)  {
@@ -594,7 +599,7 @@ def setZoneSettings() {
 	log.debug "End of setZoneSettings Fcn"
 }
 
-// @sensor	motionSensor used for motion detection in room
+// @sensor		motionSensor used for motion detection in room
 // @indiceRoom	room indice in settings
 private def isRoomOccupied(sensor, indiceRoom) {
     // If mode is Night, then consider the room occupied.
