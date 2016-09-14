@@ -581,8 +581,7 @@ def setZoneSettings() {
 	if (settings.thermostat) {
 		// Check the operating State before adjusting the vents again.
 		String operatingState = thermostat.currentThermostatOperatingState           
-		if (operatingState?.toUpperCase() !='IDLE') 
-		{            
+		if (operatingState?.toUpperCase() !='IDLE') {            
 			if (detailedNotif) {
 				log.debug "setZoneSettings>thermostat ${thermostat}'s Operating State is ${operatingState}: adjusting the vents"
 			}                            
