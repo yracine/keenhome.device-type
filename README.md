@@ -63,3 +63,5 @@ a) Go to the Home tab, click on Things, and the right device
 b) Hit the configure tile to set the new 'refresh rate' settings.
 
 You need to press the configure tile for each device that you have.
+
+Hitting the configure button will no do anything in the UI, but it will change the polling rate (5-10 minutes instead of 1 minute polling) in the list of events.
