@@ -13,6 +13,19 @@ https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=yracine%40yahoo%2e
 
 **************************************************************************************************
 
+
+- Determine your shard, please consult this thread:
+
+https://community.smartthings.com/t/faq-how-to-find-out-what-shard-cloud-slice-ide-url-your-account-location-is-on/53923
+
+If you are on the different shard, you need to change the links below for your right shard. Also, please take note of the extra tasks involved in step 5.
+
+As an example, in the North America,
+
+replace https://graph.api.smartthings.com/ide/devices by https://graph-na02-useast1.api.smartthings.com
+
+
+
 The device type's configure tile changes the pressure and temp's refresh rate to be 5-10 minutes instead of 1 minute (set by default) in order to avoid excessive battery usage.
 
 Setup time: about 2 minutes
