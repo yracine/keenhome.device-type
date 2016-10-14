@@ -13,12 +13,17 @@ https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=yracine%40yahoo%2e
 
 **************************************************************************************************
 
+=====================
+PREREQUISITES
+=====================
 
+- Your Keen Home vent(s) fully operational (not connected to the Keen Home Hub, but to the ST hub)
+- Developer access to SmartThings (http://graph.api.smartthings.com/)
 - Determine your shard, please consult this thread:
 
 https://community.smartthings.com/t/faq-how-to-find-out-what-shard-cloud-slice-ide-url-your-account-location-is-on/53923
 
-If you are on the different shard, you need to change the links below for your right shard. Also, please take note of the extra tasks involved in step 5.
+If you are on the different shard, you need to change the links below for your right shard. 
 
 As an example, in the North America,
 
