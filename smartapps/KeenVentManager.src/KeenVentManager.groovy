@@ -422,7 +422,7 @@ def ventTemperatureHandler(evt) {
 			} catch (e) {
 				log.error ("setZoneSettings>not able to do a poll() on ${thermostat}, exception ${e}")
 			}                    
-			}  else if  (thermostat.hasCapability("Refresh")) {
+		}  else if  (thermostat.hasCapability("Refresh")) {
 			try {        
 				thermostat.refresh()
 			} catch (e) {
