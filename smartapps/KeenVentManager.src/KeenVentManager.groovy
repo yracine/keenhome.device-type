@@ -42,7 +42,7 @@ def generalSetupPage() {
 	dynamicPage(name: "generalSetupPage", uninstall:true, nextPage: roomsSetupPage,refreshAfterSelection:true) {
 		section("ABOUT") {
 			paragraph  image:"${getCustomImagePath()}keenHome.jpg","${get_APP_NAME()}, the smartapp that enables better ambiant temperature control in Rooms based on Keen Home Smart Vents"
-			paragraph "Commissioned by Keen Home, Version 1.4" 
+			paragraph "Commissioned by Keen Home, Version 1.5" 
 			paragraph "Copyright©2016 Yves Racine"
 			paragraph "More Zoned Heating/Cooling Solutions- with scheduling & zoning capabilities- available here (click below)" 
 				href url:"http://www.ecomatiqhomes.com/#!store/tc3yr", style:"embedded", required:false, title:"More zoning solutions here..."  
@@ -415,7 +415,20 @@ def ventTemperatureHandler(evt) {
 	if (!settings.thermostat) {  // if no thermostat provided, then reavaluate vent settings  
 		setZoneSettings()
 	} else {
-		thermostat.poll()	// added a poll call to get the latest thermostat values from the thermostat.    
+		/* Poll or refresh the thermostat to get latest values */
+		if  (thermostat.hasCapability("Polling")) {
+			try {        
+				thermostat.poll()
+			} catch (e) {
+				log.error ("setZoneSettings>not able to do a poll() on ${thermostat}, exception ${e}")
+			}                    
+			}  else if  (thermostat.hasCapability("Refresh")) {
+			try {        
+				thermostat.refresh()
+			} catch (e) {
+				log.error ("setZoneSettings>not able to do a refresh() on ${thermostat}, exception ${e}")
+			}
+		}                    
 	}    
 }
 
