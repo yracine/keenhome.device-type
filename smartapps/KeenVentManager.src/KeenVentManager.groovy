@@ -26,7 +26,7 @@ definition(
 	iconX2Url: "${getCustomImagePath()}keenHome.jpg"
 )
 
-def get_APP_VERSION() {return "1.6"}
+def get_APP_VERSION() {return "1.6.1"}
 
 preferences {
 
@@ -799,11 +799,13 @@ private def adjust_vent_settings() {
 					} else if ((tempAtSensor.round(1) < desiredRoomTemp) && (tempInVent.round(1) < (tempAtSensor.round(1) - VENT_TEMP_DIFF))) {                  
 						switchLevel = MIN_OPEN_LEVEL_IN_ZONE	
 					} else { /* HVAC is probably idle */
-						if (tempAtSensor.round(1) < desiredRoomTemp) {						                    
-							switchLevel=100
+						if ((tempAtSensor.round(1) < desiredRoomTemp) && (tempInVent.round(1) > tempAtSensor.round(1))) {						                    
+							switchLevel=100 // assuming here that the HVAC was previously heating
+						} else if ((tempAtSensor.round(1) > desiredRoomTemp) && (tempInVent.round(1) < tempAtSensor.round(1))) {								switchLevel = MIN_OPEN_LEVEL_IN_ZONE
+							switchLevel=100  // assuming here that the HVAC was previously cooling
 						} else {
 							switchLevel = MIN_OPEN_LEVEL_IN_ZONE
-						}                        
+    					}                    
 					}                    
 				}                
 				if (switchOverrideLevel) {                
