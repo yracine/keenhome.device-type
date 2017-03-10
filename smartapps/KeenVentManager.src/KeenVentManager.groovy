@@ -26,7 +26,7 @@ definition(
 	iconX2Url: "${getCustomImagePath()}keenHome.jpg"
 )
 
-
+def get_APP_VERSION() {return "1.6"}
 
 preferences {
 
@@ -42,7 +42,7 @@ def generalSetupPage() {
 	dynamicPage(name: "generalSetupPage", uninstall:true, nextPage: roomsSetupPage,refreshAfterSelection:true) {
 		section("ABOUT") {
 			paragraph  image:"${getCustomImagePath()}keenHome.jpg","${get_APP_NAME()}, the smartapp that enables better ambiant temperature control in Rooms based on Keen Home Smart Vents"
-			paragraph "Commissioned by Keen Home, Version 1.5" 
+			paragraph "Commissioned by Keen Home, Version ${get_APP_VERSION()}" 
 			paragraph "Copyright©2016 Yves Racine"
 			paragraph "More Zoned Heating/Cooling Solutions- with scheduling & zoning capabilities- available here (click below)" 
 				href url:"http://www.ecomatiqhomes.com/#!store/tc3yr", style:"embedded", required:false, title:"More zoning solutions here..."  
@@ -346,8 +346,7 @@ def NotificationsPage() {
 			input "phone", "phone", title: "Send a Text Message?", required: false
 		}
 		section("Detailed Notifications") {
-			input "detailedNotif", "bool", title: "Detailed Notifications?", required:
-				false
+			input "detailedNotif", "bool", title: "Detailed Notifications?", required:false
 		}
 		section([mobileOnly: true]) {
 			label title: "Assign a name for this SmartApp", required: false
@@ -799,8 +798,12 @@ private def adjust_vent_settings() {
 					                
 					} else if ((tempAtSensor.round(1) < desiredRoomTemp) && (tempInVent.round(1) < (tempAtSensor.round(1) - VENT_TEMP_DIFF))) {                  
 						switchLevel = MIN_OPEN_LEVEL_IN_ZONE	
-					} else {
-						switchLevel=100                    
+					} else { /* HVAC is probably idle */
+						if (tempAtSensor.round(1) < desiredRoomTemp) {						                    
+							switchLevel=100
+						} else {
+							switchLevel = MIN_OPEN_LEVEL_IN_ZONE
+						}                        
 					}                    
 				}                
 				if (switchOverrideLevel) {                
@@ -867,28 +870,47 @@ private def getCurrentVentLevel(ventSwitch) {
 // @ventLevel	switchLevel, by default set to 100%
 private def setVentSwitchLevel(indiceRoom, ventSwitch, switchLevel=100) {
 	def roomName
+	int MAX_LEVEL_DELTA=5
+	def key
     
 	if (indiceRoom) {
-		def key = "roomName$indiceRoom"
+		key = "roomName$indiceRoom"
 		roomName = settings[key]
 	}
 	try {
 		ventSwitch.setLevel(switchLevel)
-		if (roomName) {       
-			if (detailedNotif) {
-				send("set ${ventSwitch} at level ${switchLevel} in room ${roomName} to reach desired temperature")
-			}
+		if (roomName) {
+			if (detailedNotif) {        
+				log.info("set ${ventSwitch} at level ${switchLevel} in room ${roomName} to reach desired temperature")
+			}                
 		}            
 	} catch (e) {
 		if (switchLevel >0) {
+			ventSwitch.off() // alternate off/on to clear potential obstruction        
 			ventSwitch.on()        
-			log.error "setVentSwitchLevel>not able to set ${ventSwitch} at ${switchLevel} (exception $e), trying to turn it on"
+			log.warn("setVentSwitchLevel>not able to set ${ventSwitch} at ${switchLevel} (exception $e), trying to turn it on")
+			return false                
 		} else {
+			ventSwitch.on() // alternate on/off to clear potential obstruction             
 			ventSwitch.off()        
-			log.error "setVentSwitchLevel>not able to set ${ventSwitch} at ${switchLevel} (exception $e), trying to turn it off"
+			log.warn("setVentSwitchLevel>not able to set ${ventSwitch} at ${switchLevel} (exception $e), trying to turn it off")
+			return false                
 		}
-	}
+	}    
+	int currentLevel=ventSwitch.currentValue("level")    
+	def currentStatus=ventSwitch.currentValue("switch")    
+	if (currentStatus=="obstructed") {
+		ventSwitch.off() // alternate off/on to clear obstruction        
+		ventSwitch.on()  
+		log.warn ("setVentSwitchLevel>error while trying to send setLevel command, switch ${ventSwitch} is obstructed")
+		return false   
+	}    
+	if ((currentLevel < (switchLevel - MAX_LEVEL_DELTA)) ||  (currentLevel > (switchLevel + MAX_LEVEL_DELTA))) {
+		log.warn( "setVentSwitchLevel>error not able to set ${ventSwitch} at ${switchLevel}")
+		return false           
+	}    
     
+	return true    
 }
 
 // @ventLevel switchLevel, by default set to 100%
