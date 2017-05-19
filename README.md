@@ -13,9 +13,8 @@ https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=yracine%40yahoo%2e
 
 **************************************************************************************************
 
-=====================
-PREREQUISITES
-=====================
+=====================PREREQUISITES
+
 
 - Your Keen Home vent(s) fully operational (not connected to the Keen Home Hub, but to the ST hub)
 - Developer access to SmartThings (http://graph.api.smartthings.com/)
@@ -35,9 +34,7 @@ The device type's configure tile changes the pressure and temp's refresh rate to
 
 Setup time: about 2 minutes
 
-=====================
-INSTALLATION STEPS
-=====================
+=====================INSTALLATION STEPS
 
 /*********************************************************************************************
 
