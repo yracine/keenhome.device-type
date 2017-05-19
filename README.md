@@ -13,7 +13,8 @@ https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=yracine%40yahoo%2e
 
 **************************************************************************************************
 
-=====================PREREQUISITES
+PREREQUISITES
+=====================
 
 
 - Your Keen Home vent(s) fully operational (not connected to the Keen Home Hub, but to the ST hub)
@@ -32,9 +33,10 @@ replace https://graph.api.smartthings.com/ide/devices by https://graph-na02-usea
 
 The device type's configure tile changes the pressure and temp's refresh rate to be 5-10 minutes instead of 1 minute (set by default) in order to avoid excessive battery usage.
 
-Setup time: about 2 minutes
+Setup time: about 2-5 minutes depending on your ST skills
 
-=====================INSTALLATION STEPS
+INSTALLATION STEPS
+=====================
 
 /*********************************************************************************************
 
