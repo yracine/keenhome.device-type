@@ -51,7 +51,7 @@ c) Hit the "From Code" tab on the left corner
 
 d) Copy and paste the code from 
 
-http://github.com/yracine/keenhome.device-type/blob/master/smartvents.groovy
+https://github.com/yracine/keenhome.device-type/blob/master/devicetypes/keensmartvent.src/keensmartvent.groovy
 
 e) Hit the create button at the bottom
 
