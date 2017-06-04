@@ -805,7 +805,7 @@ private def adjust_vent_settings() {
 							switchLevel=100  // assuming here that the HVAC was previously cooling
 						} else {
 							switchLevel = MIN_OPEN_LEVEL_IN_ZONE
-    					}                    
+    						}                    
 					}                    
 				}                
 				if (switchOverrideLevel) {                
