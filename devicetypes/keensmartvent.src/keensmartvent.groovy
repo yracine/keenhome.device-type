@@ -61,7 +61,7 @@ metadata {
             ]
         }
         valueTile("battery", "device.battery", inactiveLabel: false, decoration: "flat") {
-            state "battery", label: 'Battery \n${currentValue}%', backgroundColor:"#ffffff"
+            state "battery", label: 'Battery ${currentValue}%', backgroundColor:"#ffffff"
         }
         valueTile("zigbeeId", "device.zigbeeId", inactiveLabel: true, decoration: "flat") {
             state "serial", label:'${currentValue}', backgroundColor:"#ffffff"
