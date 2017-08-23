@@ -1,5 +1,5 @@
 /*
- *  KeenVentManager
+ *  SmartVentManager
  *
  *  Copyright 2016 Yves Racine
  *  Smartapp commissioned by Keen Home inc.
@@ -17,7 +17,7 @@
  */
  
 definition(
-	name:"KeenVentManager",
+	name:"$get_APP_NAME()",
 	namespace: "yracine",
 	author: "Yves Racine",
 	description: "Better ambiant temperature control in rooms based on Keen Home Smart Vents",
@@ -26,7 +26,7 @@ definition(
 	iconX2Url: "${getCustomImagePath()}keenHome.jpg"
 )
 
-def get_APP_VERSION() {return "1.6.1"}
+def get_APP_VERSION() {return "1.6.2"}
 
 preferences {
 
@@ -805,7 +805,7 @@ private def adjust_vent_settings() {
 							switchLevel=100  // assuming here that the HVAC was previously cooling
 						} else {
 							switchLevel = MIN_OPEN_LEVEL_IN_ZONE
-    						}                    
+						}                    
 					}                    
 				}                
 				if (switchOverrideLevel) {                
@@ -958,7 +958,7 @@ private send(msg) {
 }
 
 private def get_APP_NAME() {
-	return "KeenVentManager"
+	return "SmartVentManager"
 }
 
 private def get_MAX_ROOMS() {
