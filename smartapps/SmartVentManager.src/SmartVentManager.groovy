@@ -41,8 +41,8 @@ preferences {
 def generalSetupPage() {
 	dynamicPage(name: "generalSetupPage", uninstall:true, nextPage: roomsSetupPage,refreshAfterSelection:true) {
 		section("ABOUT") {
-			paragraph  image:"${getCustomImagePath()}keenHome.jpg","${get_APP_NAME()}, the smartapp that enables better ambiant temperature control in Rooms based on Keen Home Smart Vents"
-			paragraph "Commissioned by Keen Home, Version ${get_APP_VERSION()}" 
+			paragraph  image:"${getCustomImagePath()}keenHome.jpg","${get_APP_NAME()}, the smartapp that enables better ambiant temperature control in Rooms based on Smart Vents"
+			paragraph "Version ${get_APP_VERSION()}" 
 			paragraph "Copyright©2016 Yves Racine"
 			paragraph "More Zoned Heating/Cooling Solutions- with scheduling & zoning capabilities- available here (click below)" 
 				href url:"http://www.ecomatiqhomes.com/#!store/tc3yr", style:"embedded", required:false, title:"More zoning solutions here..."  
