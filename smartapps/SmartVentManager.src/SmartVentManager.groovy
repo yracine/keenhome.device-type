@@ -20,7 +20,7 @@ definition(
 	name: "${get_APP_NAME()}",
 	namespace: "yracine",
 	author: "Yves Racine",
-	description: "Better ambiant temperature control in rooms based on Keen Home Smart Vents",
+	description: "Better ambiant temperature control in rooms based on Smart Vents",
 	category: "My Apps",
 	iconUrl: "${getCustomImagePath()}keenHome.jpg",
 	iconX2Url: "${getCustomImagePath()}keenHome.jpg"
