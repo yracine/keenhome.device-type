@@ -26,7 +26,7 @@ definition(
 	iconX2Url: "${getCustomImagePath()}keenHome.jpg"
 )
 
-def get_APP_VERSION() {return "1.6.1"}
+def get_APP_VERSION() {return "1.6.2"}
 
 preferences {
 
