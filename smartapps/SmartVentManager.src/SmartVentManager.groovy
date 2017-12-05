@@ -26,7 +26,7 @@ definition(
 	iconX2Url: "${getCustomImagePath()}keenHome.jpg"
 )
 
-def get_APP_VERSION() {return "1.6.2"}
+def get_APP_VERSION() {return "1.7"}
 
 preferences {
 
@@ -411,24 +411,7 @@ def ventTemperatureHandler(evt) {
 		return        
 	} /* if too cold */ 
     
-	if (!settings.thermostat) {  // if no thermostat provided, then reavaluate vent settings  
-		setZoneSettings()
-	} else {
-		/* Poll or refresh the thermostat to get latest values */
-		if  (thermostat.hasCapability("Polling")) {
-			try {        
-				thermostat.poll()
-			} catch (e) {
-				log.error ("setZoneSettings>not able to do a poll() on ${thermostat}, exception ${e}")
-			}                    
-		}  else if  (thermostat.hasCapability("Refresh")) {
-			try {        
-				thermostat.refresh()
-			} catch (e) {
-				log.error ("setZoneSettings>not able to do a refresh() on ${thermostat}, exception ${e}")
-			}
-		}                    
-	}    
+	setZoneSettings()
 }
 
 
