@@ -41,7 +41,7 @@ INSTALLATION STEPS
 
 # 1) Create the device type (Keen Home Smart Vent)
 
-a) Go to https://graph.api.smartthings.com/ide/devices     (or whatever your shard is)
+a) Go to https://graph.api.smartthings.com/ide/devices    (or whatever your shard is and click on My Device Handlers in the IDE's top menu)
 
 b) Hit the "+New Device Type" at the top right corner
 
@@ -58,7 +58,7 @@ f) Hit the "publish/for me" button at the top right corner (in the code window)
 
 # 2) Assign your devices to the new device type (should be at the end of your device list)
 
-a) Go to https://graph.api.smartthings.com/device/list    (or whatever your shard is)
+a) Go to https://graph.api.smartthings.com/device/list    (or whatever your shard is and click on My Devices in the IDE's top menu)
 
 b) Click on your device(s), and then edit at the bottom
 
