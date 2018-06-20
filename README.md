@@ -23,6 +23,10 @@ PREREQUISITES
 
 https://community.smartthings.com/t/faq-how-to-find-out-what-shard-cloud-slice-ide-url-your-account-location-is-on/53923
 
+Or the SmartThings documentation here for more details:
+
+http://docs.smartthings.com/en/latest/publishing/index.html#ensure-proper-location
+
 <b>If you are on the different shard, you need to change the links below for your right shard. </b>
 
 As an example, in the North America,
