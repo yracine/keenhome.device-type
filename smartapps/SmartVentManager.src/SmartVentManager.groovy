@@ -26,7 +26,7 @@ definition(
 	iconX2Url: "${getCustomImagePath()}keenHome.jpg"
 )
 
-def get_APP_VERSION() {return "1.7"}
+def get_APP_VERSION() {return "1.7.1"}
 
 preferences {
 
@@ -45,8 +45,8 @@ def generalSetupPage() {
 			paragraph "Version ${get_APP_VERSION()}" 
 			paragraph "Copyright©2016 Yves Racine"
 			paragraph "More Zoned Heating/Cooling Solutions- with scheduling & zoning capabilities- available here (click below)" 
-				href url:"http://www.ecomatiqhomes.com/#!store/tc3yr", style:"embedded", required:false, title:"More zoning solutions here..."  
- 				description: "http://www.ecomatiqhomes.com/#!store/tc3yr"
+				href url:"https://www.ecomatiqhomes.com/#!store/tc3yr", style:"embedded", required:false, title:"More zoning solutions here..."  
+ 				description: "https://www.ecomatiqhomes.com/#!store/tc3yr"
 		} /* end section about */        
 		section("Rooms count") {
 			input (name:"roomsCount", title: "Rooms count (max=${get_MAX_ROOMS()})?", type: "number")
@@ -953,7 +953,7 @@ private def get_MAX_VENTS() {
 }
 
 private def getCustomImagePath() {
-	return "http://raw.githubusercontent.com/yracine/keenhome.device-type/master/icons/"
+	return "https://raw.githubusercontent.com/yracine/keenhome.device-type/master/icons/"
 }    
 
 private def getStandardImagePath() {
