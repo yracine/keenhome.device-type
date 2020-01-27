@@ -26,7 +26,7 @@ definition(
 	iconX2Url: "${getCustomImagePath()}keenHome.jpg"
 )
 
-def get_APP_VERSION() {return "1.7.1"}
+def get_APP_VERSION() {return "1.7.2"}
 
 preferences {
 
@@ -136,7 +136,7 @@ def roomsSetup(params) {
 	dynamicPage(name: "roomsSetup", title: "Rooms Setup", uninstall:false, nextPage: zonesSetupPage) {
 
 		section("Room ${indiceRoom} Setup") {
-			input "roomName${indiceRoom}", title: "Room Name", "string"
+			input "roomName${indiceRoom}", title: "Room Name", type:"text"
 		}
 		section("Room ${indiceRoom}-Temp threshold for vent adjustments [(when cooling and room temp < threshold) or (when heating and room temp> threshold) => vents are closed;otherwise left open]") {
 			input (name:"desiredTemp${indiceRoom}", type:"decimal", title: "Temp Threshold [default = 72F/22C]", 
