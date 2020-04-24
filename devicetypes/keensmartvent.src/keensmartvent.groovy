@@ -334,9 +334,11 @@ def on() {
         log.error("cannot open because ${linkText} is obstructed")
         return
     }
-
+/*
     sendEvent(makeOnOffResult(1))
     "st cmd 0x${device.deviceNetworkId} 1 6 1 {}"
+*/
+    setLevel(100)
 }
 
 def off() {
@@ -348,9 +350,11 @@ def off() {
         log.error("cannot close because ${linkText} is obstructed")
         return
     }
-
+/*
     sendEvent(makeOnOffResult(0))
     "st cmd 0x${device.deviceNetworkId} 1 6 0 {}"
+*/
+    setLevel(0)	
 }
 
 def clearObstruction() {
