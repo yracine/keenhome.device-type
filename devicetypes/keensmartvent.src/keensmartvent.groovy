@@ -1,4 +1,5 @@
 
+
 metadata {
     definition (name: "Keen Home Smart Vent V1.0.1", namespace: "yracine", author: "Keen Home") {
         capability "Switch Level"
@@ -43,7 +44,7 @@ metadata {
             state "clearing", action: "", icon: "st.vents.vent-closed", backgroundColor: "#ffff33"
         }
         controlTile("levelSliderControl", "device.level", "slider", height: 1, width: 2, inactiveLabel: false) {
-            state "level", action:"switch level.setLevel"
+            state "level", action:"setLevel"
         }
         standardTile("refresh", "device.power", inactiveLabel: false, decoration: "flat") {
             state "default", label:'', action:"refresh.refresh", icon:"st.secondary.refresh"
@@ -376,7 +377,7 @@ def clearObstruction() {
     ] + configure()
 }
 
-def setLevel(value) {
+def setLevel(value, rate=null) {
     log.debug "setting level: ${value}"
     def linkText = getLinkText(device)
 
