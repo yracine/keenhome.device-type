@@ -1,6 +1,6 @@
 // keen home smart vent
 // http://www.keenhome.io
-// SmartThings Device Handler v1.0.0
+// SmartThings Device Handler v1.0.1
 
 metadata {
     definition (name: "Keen Home Smart Vent V1.0.1", namespace: "yracine", author: "Keen Home") {
@@ -84,41 +84,7 @@ metadata {
         reply "zcl on-off off": "on/off: 0"
     }
 
-    // UI tile definitions
-    tiles {
-        standardTile("switch", "device.switch", width: 2, height: 2, canChangeIcon: true) {
-            state "on", action: "switch.off", icon: "st.vents.vent-open-text", backgroundColor: "#00a0dc"
-            state "off", action: "switch.on", icon: "st.vents.vent-closed", backgroundColor: "#ffffff"
-            state "obstructed", action: "clearObstruction", icon: "st.vents.vent-closed", backgroundColor: "#e86d13"
-            state "clearing", action: "", icon: "st.vents.vent-closed", backgroundColor: "#ffffff"
-        }
-        controlTile("levelSliderControl", "device.level", "slider", height: 1, width: 2, inactiveLabel: false) {
-            state "level", action:"switch level.setLevel"
-        }
-        standardTile("refresh", "device.power", inactiveLabel: false, decoration: "flat") {
-            state "default", label:'', action:"refresh.refresh", icon:"st.secondary.refresh"
-        }
-        valueTile("temperature", "device.temperature", inactiveLabel: false) {
-            state "temperature", label:'${currentValue}°',
-            backgroundColors:[
-                [value: 31, color: "#153591"],
-                [value: 44, color: "#1e9cbb"],
-                [value: 59, color: "#90d2a7"],
-                [value: 74, color: "#44b621"],
-                [value: 84, color: "#f1d801"],
-                [value: 95, color: "#d04e00"],
-                [value: 96, color: "#bc2323"]
-            ]
-        }
-        valueTile("battery", "device.battery", inactiveLabel: false, decoration: "flat") {
-            state "battery", label: 'Battery \n${currentValue}%', backgroundColor:"#ffffff"
-        }
-        valueTile("zigbeeId", "device.zigbeeId", inactiveLabel: true, decoration: "flat") {
-            state "serial", label:'${currentValue}', backgroundColor:"#ffffff"
-        }
-        main "switch"
-        details(["switch","refresh","temperature","levelSliderControl","battery"])
-    }
+ 
 
 
 /**** PARSE METHODS ****/
