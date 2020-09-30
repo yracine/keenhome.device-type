@@ -1,4 +1,6 @@
-
+// keen home smart vent
+// http://www.keenhome.io
+// SmartThings Device Handler v1.0.0
 
 metadata {
     definition (name: "Keen Home Smart Vent V1.0.1", namespace: "yracine", author: "Keen Home") {
@@ -17,12 +19,8 @@ metadata {
         command "getTemperature"
         command "setZigBeeIdTile"
         command "clearObstruction"
-
-        fingerprint endpoint: "1",
-        profileId: "0104",
-        inClusters: "0000,0001,0003,0004,0005,0006,0008,0020,0402,0403,0B05,FC01,FC02",
-        outClusters: "0019"
-    }
+        fingerprint endpoint: "1", profileId: "0104", inClusters: "0000,0001,0003,0004,0005,0006,0008,0020,0402,0403,0B05,FC01,FC02", outClusters: "0019", deviceJoinName: "Keen Home Vent"
+     }
 
     // simulator metadata
     simulator {
@@ -73,7 +71,55 @@ metadata {
         main "switch"
         details(["switch","refresh","temperature","levelSliderControl","battery",  "configure"])
     }
+
 }
+    // simulator metadata
+    simulator {
+        // status messages
+        status "on": "on/off: 1"
+        status "off": "on/off: 0"
+
+        // reply messages
+        reply "zcl on-off on": "on/off: 1"
+        reply "zcl on-off off": "on/off: 0"
+    }
+
+    // UI tile definitions
+    tiles {
+        standardTile("switch", "device.switch", width: 2, height: 2, canChangeIcon: true) {
+            state "on", action: "switch.off", icon: "st.vents.vent-open-text", backgroundColor: "#00a0dc"
+            state "off", action: "switch.on", icon: "st.vents.vent-closed", backgroundColor: "#ffffff"
+            state "obstructed", action: "clearObstruction", icon: "st.vents.vent-closed", backgroundColor: "#e86d13"
+            state "clearing", action: "", icon: "st.vents.vent-closed", backgroundColor: "#ffffff"
+        }
+        controlTile("levelSliderControl", "device.level", "slider", height: 1, width: 2, inactiveLabel: false) {
+            state "level", action:"switch level.setLevel"
+        }
+        standardTile("refresh", "device.power", inactiveLabel: false, decoration: "flat") {
+            state "default", label:'', action:"refresh.refresh", icon:"st.secondary.refresh"
+        }
+        valueTile("temperature", "device.temperature", inactiveLabel: false) {
+            state "temperature", label:'${currentValue}°',
+            backgroundColors:[
+                [value: 31, color: "#153591"],
+                [value: 44, color: "#1e9cbb"],
+                [value: 59, color: "#90d2a7"],
+                [value: 74, color: "#44b621"],
+                [value: 84, color: "#f1d801"],
+                [value: 95, color: "#d04e00"],
+                [value: 96, color: "#bc2323"]
+            ]
+        }
+        valueTile("battery", "device.battery", inactiveLabel: false, decoration: "flat") {
+            state "battery", label: 'Battery \n${currentValue}%', backgroundColor:"#ffffff"
+        }
+        valueTile("zigbeeId", "device.zigbeeId", inactiveLabel: true, decoration: "flat") {
+            state "serial", label:'${currentValue}', backgroundColor:"#ffffff"
+        }
+        main "switch"
+        details(["switch","refresh","temperature","levelSliderControl","battery"])
+    }
+
 
 /**** PARSE METHODS ****/
 def parse(String description) {
@@ -174,12 +220,10 @@ private Map parseReportAttributeMessage(String description) {
 private Map parseCustomMessage(String description) {
     Map resultMap = [:]
     if (description?.startsWith('temperature: ')) {
-        // log.debug "${description}"
-        // def value = zigbee.parseHATemperatureValue(description, "temperature: ", getTemperatureScale())
-        // log.debug "split: " + description.split(": ")
-        def value = Double.parseDouble(description.split(": ")[1])
-        // log.debug "${value}"
-        resultMap = makeTemperatureResult(convertTemperature(value))
+        def tempData = description.split(": ")[1].split(" ")
+        def scale = (tempData.length > 1) ? tempData[1] : "C"
+        def value = Double.parseDouble(tempData[0])
+        resultMap = makeTemperatureResult(convertTemperature(value, scale))
     }
     return resultMap
 }
@@ -275,6 +319,7 @@ private Map makeTemperatureResult(value) {
         name: 'temperature',
         value: "" + value,
         descriptionText: "${linkText} is ${value}°${temperatureScale}",
+        unit: temperatureScale
     ]
 }
 
@@ -284,18 +329,19 @@ private def convertTemperatureHex(value) {
     def celsius = Integer.parseInt(value, 16).shortValue() / 100
     // log.debug "celsius: ${celsius}"
 
-    return convertTemperature(celsius)
+    return convertTemperature(celsius, "C")
 }
 
-private def convertTemperature(celsius) {
-    // log.debug "convertTemperature()"
-
-    if(getTemperatureScale() == "C"){
-        return celsius
+private def convertTemperature(value, scale = "C") {
+    if(getTemperatureScale() == scale){
+        return Math.round(value * 100) / 100
     } else {
-        def fahrenheit = Math.round(celsiusToFahrenheit(celsius) * 100) /100
-        // log.debug "converted to F: ${fahrenheit}"
-        return fahrenheit
+        if (scale == "C") {
+            // Celsius to Fahrenheit
+            return Math.round(celsiusToFahrenheit(value) * 100) /100
+        }
+        // Fahrenheit to Celsius
+        return Math.round(fahrenheitToCelsius(value) * 100) /100
     }
 }
 
@@ -339,7 +385,8 @@ def on() {
     sendEvent(makeOnOffResult(1))
     "st cmd 0x${device.deviceNetworkId} 1 6 1 {}"
 */
-    setLevel(100)
+
+	setLevel(100)	
 }
 
 def off() {
@@ -354,8 +401,9 @@ def off() {
 /*
     sendEvent(makeOnOffResult(0))
     "st cmd 0x${device.deviceNetworkId} 1 6 0 {}"
-*/
-    setLevel(0)	
+*/   
+
+	setLevel(0)
 }
 
 def clearObstruction() {
@@ -377,7 +425,7 @@ def clearObstruction() {
     ] + configure()
 }
 
-def setLevel(value, rate=null) {
+def setLevel(value, rate = null) {
     log.debug "setting level: ${value}"
     def linkText = getLinkText(device)
 
@@ -456,20 +504,81 @@ def setZigBeeIdTile() {
         name: "zigbeeId",
         value: device.zigbeeId,
         descriptionText: "${linkText} has zigbeeId ${device.zigbeeId}" ])
-	return [
+    return [
         name: "zigbeeId",
         value: device.zigbeeId,
         descriptionText: "${linkText} has zigbeeId ${device.zigbeeId}" ]
 }
 
 def refresh() {
-	getOnOff() +
+    getOnOff() +
     getLevel() +
     getTemperature() +
     getPressure() +
     getBattery()
 }
 
+/**
+ * PING is used by Device-Watch in attempt to reach the Device
+ * */
+def ping() {
+    return refresh()
+}
+/*
+old configure
+
+def configure() {
+    log.debug "CONFIGURE"
+
+    // Device-Watch allows 2 check-in misses from device + ping (plus 1 min lag time)
+    // enrolls with default periodic reporting until newer 5 min interval is confirmed
+    sendEvent(name: "checkInterval", value: 2 * 10 * 60 + 2 * 60, displayed: false, data: [protocol: "zigbee", hubHardwareId: device.hub.hardwareID])
+
+    // get ZigBee ID by hidden tile because that's the only way we can do it
+    setZigBeeIdTile()
+
+    def configCmds = [
+        // bind reporting clusters to hub
+            //commenting out switch cluster bind as using wrapper onOffConfig of zigbee class
+        //"zdo bind 0x${device.deviceNetworkId} 1 1 0x0006 {${device.zigbeeId}} {}", "delay 500",
+        "zdo bind 0x${device.deviceNetworkId} 1 1 0x0008 {${device.zigbeeId}} {}", "delay 500",
+        "zdo bind 0x${device.deviceNetworkId} 1 1 0x0402 {${device.zigbeeId}} {}", "delay 500",
+        "zdo bind 0x${device.deviceNetworkId} 1 1 0x0403 {${device.zigbeeId}} {}", "delay 500",
+        "zdo bind 0x${device.deviceNetworkId} 1 1 0x0001 {${device.zigbeeId}} {}", "delay 500"
+
+        // configure report commands
+        // zcl global send-me-a-report [cluster] [attr] [type] [min-interval] [max-interval] [min-change]
+
+        // report with these parameters is preconfigured in firmware, can be overridden here
+        // vent on/off state - type: boolean, change: 1
+        // "zcl global send-me-a-report 6 0 0x10 5 60 {01}", "delay 200",
+        // "send 0x${device.deviceNetworkId} 1 1", "delay 1500",
+
+        // report with these parameters is preconfigured in firmware, can be overridden here
+        // vent level - type: int8u, change: 1
+        // "zcl global send-me-a-report 8 0 0x20 5 60 {01}", "delay 200",
+        // "send 0x${device.deviceNetworkId} 1 1", "delay 1500",
+
+        // report with these parameters is preconfigured in firmware, can be overridden here
+        // temperature - type: int16s, change: 0xA = 10 = 0.1C
+        // "zcl global send-me-a-report 0x0402 0 0x29 60 60 {0A00}", "delay 200",
+        // "send 0x${device.deviceNetworkId} 1 1", "delay 1500",
+
+        // report with these parameters is preconfigured in firmware, can be overridden here
+        // keen home custom pressure (tenths of Pascals) - type: int32u, change: 1 = 0.1Pa
+        // "zcl mfg-code 0x115B", "delay 200",
+        // "zcl global send-me-a-report 0x0403 0x20 0x22 60 60 {010000}", "delay 200",
+        // "send 0x${device.deviceNetworkId} 1 1", "delay 1500",
+
+        // report with these parameters is preconfigured in firmware, can be overridden here
+        // battery - type: int8u, change: 1
+        // "zcl global send-me-a-report 1 0x21 0x20 60 3600 {01}", "delay 200",
+        // "send 0x${device.deviceNetworkId} 1 1", "delay 1500",
+    ]
+
+    return configCmds + zigbee.onOffConfig() + refresh()
+}
+*/
 def configure() {
     log.debug "CONFIGURE"
 
