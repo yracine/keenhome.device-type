@@ -86,6 +86,8 @@ def parse(String description) {
         } else if (descMap?.clusterInt == PRESSURE_MEASUREMENT_CLUSTER && descMap.attrInt == 0x0020) {
             // manufacturer-specific attribute
             event = getPressureResult(Integer.parseInt(descMap.value, 16))
+            sendEvent([name: "pressure", value: event.value, unit : "Pa"])  // for backward compatibility
+            
         }
     } else if (event.name == "level") {
         if (event.value > 0 && device.currentValue("switch") == "off") {
@@ -120,7 +122,7 @@ def getBatteryPercentageResult(rawValue) {
 }
 
 def getPressureResult(rawValue) {
-    def kpa = rawValue / 10  // reports are in Pascals
+    def kpa = rawValue  // reports are in Pascals
     return [name: "atmosphericPressure", value: kpa, unit: "Pa"]
 }
 
