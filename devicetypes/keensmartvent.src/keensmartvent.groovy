@@ -5,7 +5,7 @@ import physicalgraph.zigbee.zcl.DataType
 // SmartThings Device Handler v1.0.0
 
 metadata {
-    definition (name: "Keen Home Smart Vent", namespace: "Keen Home", author: "Keen Home", ocfDeviceType: "x.com.st.d.vent") {
+    definition (name: "My Keen Home Smart Vent", namespace: "yracine", author: "Keen Home", ocfDeviceType: "x.com.st.d.vent") {
         capability "Switch Level"
         capability "Switch"
         capability "Configuration"
