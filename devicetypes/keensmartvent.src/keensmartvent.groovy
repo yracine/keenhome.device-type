@@ -120,8 +120,8 @@ def getBatteryPercentageResult(rawValue) {
 }
 
 def getPressureResult(rawValue) {
-    def kpa = rawValue / (10 * 1000) // reports are in deciPascals
-    return [name: "atmosphericPressure", value: kpa, unit: "kPa"]
+    def kpa = rawValue / 10  // reports are in Pascals
+    return [name: "atmosphericPressure", value: kpa, unit: "Pa"]
 }
 
 /**** COMMAND METHODS ****/
