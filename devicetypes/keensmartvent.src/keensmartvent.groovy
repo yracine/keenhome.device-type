@@ -29,7 +29,7 @@ metadata {
         reply "zcl on-off on": "on/off: 1"
         reply "zcl on-off off": "on/off: 0"
     }
-
+	attribute "pressure", "number"
     // UI tile definitions
     tiles {
         standardTile("switch", "device.switch", width: 2, height: 2, canChangeIcon: true) {
