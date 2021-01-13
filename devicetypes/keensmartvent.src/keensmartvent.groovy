@@ -122,7 +122,7 @@ def getBatteryPercentageResult(rawValue) {
 }
 
 def getPressureResult(rawValue) {
-    def kpa = rawValue  // reports are in Pascals
+    def kpa = rawValue/10  // reports are in Pascals
     return [name: "atmosphericPressure", value: kpa, unit: "Pa"]
 }
 
