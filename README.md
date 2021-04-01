@@ -6,6 +6,10 @@ linkedIn profile:   ca.linkedin.com/pub/yves-racine-m-sc-a/0/406/4b/
 
 Date:               2015-11-04
 
+Advanced zoning smartapps at my store:
+
+www.ecomatiqhomes.com/store
+
 If you like the device handler, please support the developer.
 
 <br/> [![PayPal](https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif)](
