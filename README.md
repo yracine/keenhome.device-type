@@ -75,7 +75,7 @@ c) Choose the new device type (v1.0.1) from the list using the type field
 d) Hit the save button at the bottom
 
 
-# 3) Configure the new device settings in the smartThing classic app</b>
+# 3) Configure the new device settings in the smartThing classic app or call the configure method() using WebCore or Sharptools</b>
 
 
 a) Go to the Home tab, click on Things, and the right device
