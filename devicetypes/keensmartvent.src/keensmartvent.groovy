@@ -85,9 +85,10 @@ def parse(String description) {
             event = getBatteryPercentageResult(Integer.parseInt(descMap.value, 16))
         } else if (descMap?.clusterInt == PRESSURE_MEASUREMENT_CLUSTER && descMap.attrInt == 0x0020) {
             // manufacturer-specific attribute
-            event = getPressureResult(Integer.parseInt(descMap.value, 16))
-            sendEvent([name: "pressure", value: event.value, unit : "Pa"])  // for backward compatibility
-            
+			if (descMap?.value)  {           
+         		event = getPressureResult(Integer.parseInt(descMap.value, 16))
+            	sendEvent([name: "pressure", value: event.value, unit : "Pa"])  // for backward compatibility
+	        }
         }
     } else if (event.name == "level") {
         if (event.value > 0 && device.currentValue("switch") == "off") {
@@ -253,5 +254,7 @@ def configure() {
 	]
    return refresh() + delayBetween(cmds)
 }
+
+
 
 
